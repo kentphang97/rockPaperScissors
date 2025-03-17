@@ -102,7 +102,6 @@ function playRound(humanChoice,computerChoice)
 
 const humanPlayer = getHumanChoice();
 const computer = getComputerChoice();
-
 playRound(humanPlayer,computer);
 playRound(humanPlayer,computer);
 playRound(humanPlayer,computer);
