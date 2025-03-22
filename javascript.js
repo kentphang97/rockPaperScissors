@@ -1,5 +1,12 @@
-let humanScore = 0;
+let playerScore = 0;
 let computerScore = 0;
+let roundWinner = "";
+
+const scoreMessage = document.querySelector(".score-message");
+const playerSign = document.querySelector("#player-sign");
+const computerSign = document.querySelector("#computer-sign");
+const uiPlayerScore = document.querySelector("#player-score");
+const uiComputerScore = document.querySelector("#computer-score");
 
 function getComputerChoice() {
   let computerChoice = "";
@@ -13,69 +20,92 @@ function getComputerChoice() {
   } else if (probabiltiy > 2 / 3 && probabiltiy <= 1) {
     computerChoice = "paper";
   }
-  console.log(`Computer Choose ${computerChoice}`);
   return computerChoice;
-}
-
-function getHumanChoice() {
-  let humanChoice = prompt("Please Choose Your Move!");
-  console.log(`Player Choose ${humanChoice}`);
-  return humanChoice;
 }
 
 function playRound(humanChoice) {
   const computerChoice = getComputerChoice();
-  let stringCheck = humanChoice.toLowerCase();
 
-  const playerScoreOutput = document.querySelector("#player");
-  const computerScoreOutput = document.querySelector("#computer");
-  playerScoreOutput.textContent = humanScore;
-  computerScoreOutput.textContent = computerScore;
-
-  const log = document.querySelector(".log");
-
-  if (stringCheck === "rock") {
-    if (computerChoice === "rock") {
-      log.textContent = "It is a Draw!";
-    } else if (computerChoice === "paper") {
-      log.textContent = "You Lose! Paper Beats Rock!";
-      computerScore++;
-    } else if (computerChoice === "scissors") {
-      log.textContent = "You Win! Rock Beats Scissors!";
-      humanScore++;
-    }
+  if (humanChoice === computerChoice) {
+    roundWinner = "tie";
+  } else if (
+    (humanChoice === "rock" && computerChoice === "scissors") ||
+    (humanChoice === "scissors" && computerChoice === "paper") ||
+    (humanChoice === "paper" && computerChoice === "rock")
+  ) {
+    roundWinner = "player";
+    playerScore++;
+  } else {
+    roundWinner = "computer";
+    computerScore++;
   }
 
-  if (stringCheck === "paper") {
-    if (computerChoice === "paper") {
-      log.textContent = "It is a Draw!";
-    } else if (computerChoice === "scissors") {
-      log.textContent = "You Lose! Scissors Beats Paper!";
-      computerScore++;
-    } else if (computerChoice === "rock") {
-      log.textContent = "You Win! Paper Beats Rock!";
-      humanScore++;
-    }
-  }
-
-  if (stringCheck === "scissors") {
-    if (computerChoice === "scissors") {
-      log.textContent = "It is a Draw!";
-    } else if (computerChoice === "rock") {
-      log.textContent = "You Lose! Rock Beats Scissors!";
-      computerScore++;
-    } else if (computerChoice === "paper") {
-      log.textContent = "You Win! Scissors Beats Paper!";
-      humanScore++;
-    }
-  }
-  console.log(
-    `Current Score of Player : ${humanScore} /n Current Score Of Computer : ${computerScore}`
-  );
+  updateScoreMessage(roundWinner, humanChoice, computerChoice);
+  uiUpdateScore();
+  compareScore();
 }
+
+function compareScore() {
+  if (playerScore === 5) {
+    scoreMessage.textContent = `Player Wins The Game!!`;
+  } else if (computerScore === 5) {
+    scoreMessage.textContent = `Computer Wins The Game!`;
+  }
+}
+
+function resetScore() {
+  humanScore = 0;
+  computerScore = 0;
+  uiPlayerScore.textContent = `Player : ${humanScore}`;
+  uiComputerScore.textContent = `Computer : ${computerScore}`;
+  scoreMessage.textContent = `First To Score 5 Points Win!`;
+  playerSign.textContent = "❔";
+  computerSign.textContent = "❔";
+}
+
+function updateScoreMessage(winner, humanChoice, computerChoice) {
+  if (winner === "tie") {
+    scoreMessage.textContent = `It's a tie!`;
+  } else if (winner === "player") {
+    scoreMessage.textContent = `You win!`;
+  } else {
+    scoreMessage.textContent = `You lose!`;
+  }
+
+  switch (humanChoice) {
+    case "rock":
+      playerSign.textContent = "✊";
+      break;
+    case "paper":
+      playerSign.textContent = "✋";
+      break;
+    case "scissors":
+      playerSign.textContent = "✌️";
+      break;
+  }
+
+  switch (computerChoice) {
+    case "rock":
+      computerSign.textContent = "✊";
+      break;
+    case "paper":
+      computerSign.textContent = "✋";
+      break;
+    case "scissors":
+      computerSign.textContent = "✌️";
+      break;
+  }
+}
+
+function uiUpdateScore() {
+  uiPlayerScore.textContent = `Player : ${playerScore}`;
+  uiComputerScore.textContent = `Computer : ${computerScore}`;
+}
+
 const rock = document.querySelector("#rock");
 const paper = document.querySelector("#paper");
 const scissors = document.querySelector("#scissors");
+const reset = document.querySelector("#resetScore");
 
 rock.addEventListener("click", () => {
   playRound("rock");
@@ -88,3 +118,5 @@ paper.addEventListener("click", () => {
 scissors.addEventListener("click", () => {
   playRound("scissors");
 });
+
+reset.addEventListener("click", resetScore);

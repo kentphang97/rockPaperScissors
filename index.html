@@ -9,23 +9,25 @@
   <body>
     <div class="header"><h1>Rock Paper Scissors Game</h1></div>
     <div class="game-container">
-      <button id="rock">Rock</button>
-      <button id="scissors">Scissors</button>
-      <button id="paper">Paper</button>
-    </div>
-
-    <div class="score-container">
-      <div>
-        <h2>Player Score:</h2>
-        <h2 id="player">0</h2>
+      <h2 class="score-info">Choose Your Move</h2>
+      <h3 class="score-message">First To Score 5 Points Win!</h3>
+      <div class="score-container">
+        <div class="score-box">
+          <div class="sign" id="player-sign">❔</div>
+          <div class="score" id="player-score">Player : 0</div>
+        </div>
+        <div class="score-box">
+          <div class="sign" id="computer-sign">❔</div>
+          <div class="score" id="computer-score">Computer : 0</div>
+        </div>
       </div>
-      <div>
-        <h2>Computer Score:</h2>
-        <h2 id="computer">0</h2>
+      <div class="buttons">
+        <button id="rock">👊</button>
+        <button id="scissors">✌️</button>
+        <button id="paper">✋</button>
       </div>
+      <button id="resetScore">🔄</button>
     </div>
-
-    <div class="log">Log</div>
     <script src="javascript.js"></script>
   </body>
 </html>
