@@ -5,6 +5,7 @@ button {
   padding: 5px 10px;
   border-radius: 5px;
   font-size: larger;
+  transition: transform 0.3s ease-in-out;
 }
 .score-container {
   display: flex;
@@ -36,6 +37,7 @@ button {
   margin-top: 0;
   margin-bottom: 0;
   padding-bottom: 10px;
+  font-family: "Macondo Swash Caps", cursive;
 }
 
 h1 {
@@ -65,4 +67,10 @@ h2 {
   padding: 50px 10px;
   border: solid;
   border-radius: 10px;
+}
+
+body {
+  background-color: #af5555;
+  margin: 0;
+  padding: 0;
 }
